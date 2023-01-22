@@ -1,6 +1,7 @@
 const express = require('express');
 const morgan = require('morgan');
 const path = require('path');
+const cors= require('cors');
 
 const DEFAULT_PORT = process.env.PORT || 3000;
 
@@ -11,10 +12,10 @@ const app = express();
 let port = DEFAULT_PORT;
 
 // Configure morgan module to log all requests.
-app.use(morgan('dev'));
 
 // Setup app folders.
 app.use(express.static('app'));
+app.use(cors({ origin: ['http://localhost:3000','http://localhost:80'], credentials: true }));
 
 // Set up a route for index.html
 app.get('*', (req, res) => {

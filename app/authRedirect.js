@@ -18,10 +18,11 @@ myMSALObj.handleRedirectPromise()
 function selectAccount () {
 
     /**
-     * See here for more info on account retrieval: 
+     * See here for more info on account retrieval:
      * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
      */
-
+    //todo vk
+    console.log("*****************************selectAccount:")
     const currentAccounts = myMSALObj.getAllAccounts();
 
     if (currentAccounts.length === 0) {
@@ -30,12 +31,15 @@ function selectAccount () {
         // Add your account choosing logic here
         console.warn("Multiple accounts detected.");
     } else if (currentAccounts.length === 1) {
+
         username = currentAccounts[0].username;
         showWelcomeMessage(username);
     }
 }
 
 function handleResponse(response) {
+    //todo vk
+    console.log("*****************************handleResponse:")
     if (response !== null) {
         username = response.account.username;
         showWelcomeMessage(username);
@@ -45,7 +49,8 @@ function handleResponse(response) {
 }
 
 function signIn() {
-
+    //todo vk
+    console.log("*****************************signIn:")
     /**
      * You can pass a custom request object below. This will override the initial configuration. For more information, visit:
      * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/request-response-object.md#request
@@ -71,9 +76,11 @@ function signOut() {
 
 function getTokenRedirect(request) {
     /**
-     * See here for more info on account retrieval: 
+     * See here for more info on account retrieval:
      * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
      */
+    //todo vk
+    console.log("*****************************getTokenRedirect:")
     request.account = myMSALObj.getAccountByUsername(username);
 
     return myMSALObj.acquireTokenSilent(request)
@@ -83,7 +90,7 @@ function getTokenRedirect(request) {
                 // fallback to interaction when silent call fails
                 return myMSALObj.acquireTokenRedirect(request);
             } else {
-                console.warn(error);   
+                console.warn(error);
             }
         });
 }

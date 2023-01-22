@@ -7,9 +7,11 @@ let username = "";
 function selectAccount() {
 
     /**
-     * See here for more info on account retrieval: 
+     * See here for more info on account retrieval:
      * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
      */
+    //todo vk
+    console.log("*****************************authPopo-selectAccount:")
 
     const currentAccounts = myMSALObj.getAllAccounts();
     if (currentAccounts.length === 0) {
@@ -29,7 +31,8 @@ function handleResponse(response) {
      * To see the full list of response object properties, visit:
      * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/request-response-object.md#response
      */
-
+    //todo vk
+    console.log("*****************************authPopo-handleResponse:")
     if (response !== null) {
         username = response.account.username;
         showWelcomeMessage(username);
@@ -44,12 +47,17 @@ function signIn() {
      * You can pass a custom request object below. This will override the initial configuration. For more information, visit:
      * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-browser/docs/request-response-object.md#request
      */
-
+    //todo vk
+    console.log("*****************************authPopo-signIn:")
     myMSALObj.loginPopup(loginRequest)
-        .then(handleResponse)
+        .then(x => {
+            console.log("x=", x);
+            handleResponse(x);
+        })
         .catch(error => {
-            console.error(error);
+            console.error("#####################authPopout-signIn",error);
         });
+    console.log("****loginRequest:", loginRequest);
 }
 
 function signOut() {
@@ -69,16 +77,18 @@ function signOut() {
 }
 
 function getTokenPopup(request) {
-
+    //todo vk
+    console.log("*****************************authPopo-getTokenPopup:")
     /**
-     * See here for more info on account retrieval: 
+     * See here for more info on account retrieval:
      * https://github.com/AzureAD/microsoft-authentication-library-for-js/blob/dev/lib/msal-common/docs/Accounts.md
      */
     request.account = myMSALObj.getAccountByUsername(username);
-    
+    console.log("*****************************authPopo-getTokenPopup: account")
+
     return myMSALObj.acquireTokenSilent(request)
         .catch(error => {
-            console.warn("silent token acquisition fails. acquiring token using popup");
+            console.warn("################auhtPop-getTokenPop-silent token acquisition fails. acquiring token using popup");
             if (error instanceof msal.InteractionRequiredAuthError) {
                 // fallback to interaction when silent call fails
                 return myMSALObj.acquireTokenPopup(request)
@@ -89,7 +99,7 @@ function getTokenPopup(request) {
                         console.error(error);
                     });
             } else {
-                console.warn(error);   
+                console.warn("###################authPopup-getTokenPop-else",error);
             }
     });
 }
@@ -108,7 +118,7 @@ function readMail() {
         .then(response => {
             callMSGraph(graphConfig.graphMailEndpoint, response.accessToken, updateUI);
         }).catch(error => {
-            console.error(error);
+            console.error("################### readMail - catch",error);
         });
 }
 
