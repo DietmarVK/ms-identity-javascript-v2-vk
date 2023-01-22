@@ -11,7 +11,7 @@ const msalConfig = {
         authority: "https://login.microsoftonline.com/ffcb5cef-5f3d-4671-86c3-e50bd56f9812", //ffcb5cef-5f3d-4671-86c3-e50bd56f9812/oauth2/token", //"1d8f4c6b-d1c5-4cf5-9cc5-3f849b61f102", //"ffcb5cef-5f3d-4671-86c3-e50bd56f9812",// "Enter_the_Cloud_Instance_Id_HereEnter_the_Tenant_Info_Here",
         // Full redirect URL, in form of http://localhost:3000
         //redirectUri: "https://www.gmx.at/", // "Enter_the_Redirect_Uri_Here",
-        redirectUri: "http://localhost:3000", // "Enter_the_Redirect_Uri_Here",
+        redirectUri: "http://localhost:80", // "Enter_the_Redirect_Uri_Here",
         knownAuthorities: ["https://login.microsoftonline.com/ffcb5cef-5f3d-4671-86c3-e50bd56f9812"],
     },
     // auth: { //Admin Login - worked: Start react oder index.html
